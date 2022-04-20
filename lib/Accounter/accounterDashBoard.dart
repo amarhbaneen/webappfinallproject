@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:slide_digital_clock/slide_digital_clock.dart';
+import 'package:webappfinallproject/Accounter/paycheckScreen.dart';
 
 class AccountDashboard extends StatefulWidget {
   const AccountDashboard({Key? key}) : super(key: key);
@@ -69,11 +69,11 @@ class _AccountDashboardState extends State<AccountDashboard> {
               ),
               SideMenuItem(
                 priority: 1,
-                title: 'Users',
+                title: 'PayCheck',
                 onTap: () {
                   page.jumpToPage(1);
                 },
-                icon: Icon(Icons.supervisor_account),
+                icon: Icon(Icons.file_copy_rounded),
               ),
               SideMenuItem(
                 priority: 2,
@@ -170,10 +170,7 @@ class _AccountDashboardState extends State<AccountDashboard> {
                 Container(
                   color: Colors.white,
                   child: Center(
-                    child: Text(
-                      'Users',
-                      style: TextStyle(fontSize: 35),
-                    ),
+                    child: pyacheck()
                   ),
                 ),
                 Container(

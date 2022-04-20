@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:universal_html/html.dart' as html;
+import 'package:webappfinallproject/models/payCheckModel.dart';
 import 'firebaseFile.dart';
+import 'package:uuid/uuid.dart';
 
 class FireBaseApi{
   static Future<List<String>> _getDownloadLinks(List<Reference> refs) =>
@@ -50,4 +53,41 @@ class FireBaseApi{
 
 
   }
+
+  static Future uploadPayCheck(var uploadfile, String filename) async {
+    try{
+    FirebaseStorage fs = FirebaseStorage.instance;
+    var st = fs.ref().child('/pdfs/$filename');
+    var uploadTask = st.putData(uploadfile!);
+    String url = await (await uploadTask).ref.getDownloadURL();
+    postPayCheck(url);
+
+  } catch (e) {
+      print('error occured');
+      return null;
+    }
+
+  }
+  static Future postPayCheck(String url) async {
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    var uuid = Uuid();
+    payCheckModel userModel = payCheckModel(
+        payCheckUrl: url,
+        uid: uuid.v4() ,
+        owneruid: 'no',
+        payCheckDate: DateTime.now()
+    );
+
+        await firebaseFirestore
+        .collection("paychecks")
+        .doc(userModel.uid)
+        .set(userModel.toMap());
+
+
+    // writing all the values
+
+
+  }
+
+
 }
