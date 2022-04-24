@@ -54,13 +54,13 @@ class FireBaseApi{
 
   }
 
-  static Future uploadPayCheck(var uploadfile, String filename) async {
+  static Future uploadPayCheck(var uploadfile, String filename,String owenerid, String date) async {
     try{
     FirebaseStorage fs = FirebaseStorage.instance;
     var st = fs.ref().child('/pdfs/$filename');
     var uploadTask = st.putData(uploadfile!);
     String url = await (await uploadTask).ref.getDownloadURL();
-    postPayCheck(url);
+    postPayCheck(url,owenerid,date);
 
   } catch (e) {
       print('error occured');
@@ -68,14 +68,14 @@ class FireBaseApi{
     }
 
   }
-  static Future postPayCheck(String url) async {
+  static Future postPayCheck(String url,String owenerid, String date) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var uuid = Uuid();
     payCheckModel userModel = payCheckModel(
         payCheckUrl: url,
         uid: uuid.v4() ,
-        owneruid: 'no',
-        payCheckDate: DateTime.now()
+        owneruid: owenerid,
+        payCheckDate: date
     );
 
         await firebaseFirestore
@@ -88,6 +88,7 @@ class FireBaseApi{
 
 
   }
+
 
 
 }

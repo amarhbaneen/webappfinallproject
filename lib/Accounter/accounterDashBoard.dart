@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_sidemenu/easy_sidemenu.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:slide_digital_clock/slide_digital_clock.dart';
 import 'package:webappfinallproject/Accounter/paycheckScreen.dart';
+import 'addEmployeeScreen.dart';
+import 'addManagerScreen.dart';
 
 class AccountDashboard extends StatefulWidget {
   const AccountDashboard({Key? key}) : super(key: key);
@@ -14,7 +17,6 @@ class AccountDashboard extends StatefulWidget {
 
 class _AccountDashboardState extends State<AccountDashboard> {
   PageController page = PageController();
-  late int employeeNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -77,27 +79,27 @@ class _AccountDashboardState extends State<AccountDashboard> {
               ),
               SideMenuItem(
                 priority: 2,
-                title: 'Files',
+                title: 'Add Manager',
                 onTap: () {
                   page.jumpToPage(2);
                 },
-                icon: Icon(Icons.file_copy_rounded),
+                icon: Icon(Ionicons.person_add),
               ),
               SideMenuItem(
                 priority: 3,
-                title: 'Download',
+                title: 'Add Employee',
                 onTap: () {
                   page.jumpToPage(3);
                 },
-                icon: Icon(Icons.download),
+                icon: Icon(Ionicons.person_add),
               ),
               SideMenuItem(
                 priority: 4,
-                title: 'Settings',
+                title: 'Reports',
                 onTap: () {
                   page.jumpToPage(4);
                 },
-                icon: Icon(Icons.settings),
+                icon: Icon(Ionicons.documents_outline),
               ),
               SideMenuItem(
                 priority: 6,
@@ -175,31 +177,21 @@ class _AccountDashboardState extends State<AccountDashboard> {
                 ),
                 Container(
                   color: Colors.white,
-                  child: Center(
-                    child: Text(
-                      'Files',
-                      style: TextStyle(fontSize: 35),
-                    ),
-                  ),
+                  child: addManger(page)
+
                 ),
                 Container(
                   color: Colors.white,
                   child: Center(
-                    child: Text(
-                      'Download',
-                      style: TextStyle(fontSize: 35),
+                    child: addEmployee(page)
                     ),
-                  ),
                 ),
                 Container(
                   color: Colors.white,
                   child: Center(
-                    child: Text(
-                      'Settings',
-                      style: TextStyle(fontSize: 35),
+                    child:Text("Schedule"),
                     ),
                   ),
-                ),
               ],
             ),
           ),

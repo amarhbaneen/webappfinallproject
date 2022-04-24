@@ -2,7 +2,7 @@ class payCheckModel
 {
   String uid;
   String owneruid;
-  DateTime payCheckDate;
+  String payCheckDate;
   String payCheckUrl;
 
   payCheckModel({required this.uid,required this.owneruid,required this.payCheckDate,required this.payCheckUrl});
